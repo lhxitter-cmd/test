@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>L2H XITERS Status Panel</title>
+
+<!-- tab logo -->
+<link rel="icon" href="https://github.com/senujadamnidu/photo/blob/main/9eb2efa8-d282-4242-a00e-9ecc792f3d75-removebg-preview.png?raw=true" type="image/png">
+
+<style>
+    body {
+        margin: 0;
+        font-family: Poppins, Arial, sans-serif;
+        background: linear-gradient(135deg,#0a0000,#170005,#190000,#0c0000);
+        background-size: 400% 400%;
+        animation: bgMove 12s infinite alternate ease-in-out;
+        color: white;
+        cursor: none;
+        overflow: hidden;
+    }
+
+    @keyframes bgMove {
+        0% { background-position: 0% 0%; }
+        100% { background-position: 100% 100%; }
+    }
+
+    .cursor-glow {
+        position: fixed;
+        width: 18px;
+        height: 18px;
+        background: red;
+        border-radius: 50%;
+        pointer-events: none;
+        box-shadow: 0 0 18px red, 0 0 28px rgba(255, 0, 0, 0.8);
+        transform: translate(-50%, -50%);
+        transition: 0.05s;
+        mix-blend-mode: screen;
+        z-index: 9999;
+    }
+
+    .container {
+        width: 90%;
+        max-width: 800px;
+        margin: 80px auto;
+        background: rgba(15, 5, 10, 0.85);
+        padding: 30px;
+        border-radius: 15px;
+        border: 1px solid rgba(255, 60, 60, 0.4);
+        box-shadow: 0 0 25px rgba(255, 20, 20, 0.6);
+        backdrop-filter: blur(12px);
+        transition: 0.4s;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .container:hover {
+        transform: scale(1.01);
+        box-shadow: 0 0 40px rgba(255, 40, 40, 1);
+    }
+
+    .logo {
+        width: 160px;
+        display: block;
+        margin: 0 auto 15px auto;
+        filter: drop-shadow(0 0 15px red);
+    }
+
+    h2 {
+        text-align: center;
+        color: #ff3c3c;
+        margin-bottom: 25px;
+        font-size: 26px;
+        text-shadow: 0 0 20px #ff0000;
+        animation: glowPulse 2.5s infinite ease-in-out;
+        font-family: "Bebas Neue", sans-serif;
+    }
+
+    @keyframes glowPulse {
+        0% { text-shadow: 0 0 10px #ff4a4a; }
+        100% { text-shadow: 0 0 30px #ff0000; }
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    td, th {
+        padding: 12px;
+        border-bottom: 1px solid rgba(255, 90, 90, 0.4);
+        text-align: left;
+    }
+
+    th {
+        text-transform: uppercase;
+        font-size: 12px;
+        color: #ff8080;
+    }
+
+    .status-light {
+        width: 13px;
+        height: 13px;
+        border-radius: 50%;
+        display: inline-block;
+        box-shadow: 0 0 8px;
+        animation: pulse 1.5s infinite alternate;
+    }
+
+    @keyframes pulse {
+        0% { transform: scale(0.9); opacity: 0.7; }
+        100% { transform: scale(1.2); opacity: 1; }
+    }
+
+    .green { background:#25ff66; box-shadow: 0 0 10px #25ff66; }
+    .yellow { background:#ffcc00; box-shadow:0 0 10px #ffcc00; }
+    .purple { background:#b14dff; box-shadow:0 0 10px #b14dff; }
+    .red { background:#ff2a2a; box-shadow:0 0 10px #ff2a2a; }
+
+    .btn {
+        padding: 7px 14px;
+        background: linear-gradient(90deg,#ff1b1b,#ff4646,#ff1b1b);
+        border-radius: 8px;
+        font-size: 13px;
+        color: white;
+        text-decoration: none;
+        box-shadow: 0 0 12px rgba(255, 60, 60, 0.8);
+        transition: 0.25s;
+    }
+
+    .btn:hover {
+        transform: scale(1.08);
+        box-shadow: 0 0 18px rgba(255, 120, 120, 1);
+        filter: brightness(1.3);
+    }
+
+    .legend {
+        margin-top: 20px;
+        font-size: 13px;
+        color: #ffbcbc;
+        line-height: 1.6;
+    }
+
+    .snow {
+        position: fixed;
+        top: -10px;
+        width: 8px;
+        height: 8px;
+        background: red;
+        filter: drop-shadow(0 0 8px red);
+        border-radius: 50%;
+        animation: fall linear infinite;
+        z-index: 10;
+    }
+
+    @keyframes fall {
+        0% { transform: translateY(-10px); opacity: 1; }
+        100% { transform: translateY(110vh); opacity: 0; }
+    }
+
+    footer {
+        text-align: center;
+        color: #ff7a7a;
+        margin-top: 25px;
+        font-size: 14px;
+        text-shadow: 0 0 10px red;
+        animation: glowPulse 2s infinite;
+    }
+
+    /* RESPONSIVE */
+    @media(max-width: 768px){
+        .container { width: 95%; padding: 20px 15px; margin: 40px auto; }
+        .logo { width: 120px; }
+        h2 { font-size: 22px; }
+        td, th { padding: 8px; text-align: center; }
+    }
+
+    @media(max-width: 480px){
+        .container { width: 96%; padding: 18px 12px; margin: 30px auto; }
+        .logo { width: 100px; }
+        h2 { font-size: 18px; }
+        table { font-size: 12px; }
+        td, th { padding: 6px; }
+        .btn { display: block; width: 100%; text-align: center; padding: 8px; }
+        footer { font-size: 12px; }
+    }
+</style>
+</head>
+<body>
+
+<div class="cursor-glow" id="cursor"></div>
+
+<div class="container">
+
+    <img src="https://github.com/senujadamnidu/photo/blob/main/9eb2efa8-d282-4242-a00e-9ecc792f3d75-removebg-preview.png?raw=true" class="logo" alt="">
+
+    <h2>L2H XITERS STATUS</h2>
+
+    <table>
+        <tr>
+            <th>Panel</th>
+            <th>Version</th>
+            <th>Status</th>
+            <th>Download</th>
+        </tr>
+
+        <tr>
+            <td>External</td>
+            <td>v1.50</td>
+            <td><span class="status-light green"></span> Safe</td>
+            <td><a class="btn" href="https://download1638.mediafire.com/530kwvagjs5g0kUVFtaAAcExB9wKhwQOUfs1lKdc3ZBDhJuXGkyM7MBCfUS34EnsJPVuFLKONf-PjRNPKTUVZC7Bc67dkV9MGwoWOiQ9ccb93JKLFoITsb2FEpma9uJrSIpPTA0xlL0bydKmmn8EnWpyKrOQGqwqHUZ4Ii7HFwwE1tk/7a3mfxym1ghzmpt/L2H+XITERS+BRUTAL+V1.50+.exe">Download</a></td>
+        </tr>
+
+        <tr>
+            <td>Fakelag</td>
+            <td>v1.98</td>
+            <td><span class="status-light green"></span> Safe</td>
+            <td><a class="btn" href="#">Download</a></td>
+        </tr>
+
+        <tr>
+            <td>UID Bypass</td>
+            <td>v1.14</td>
+            <td><span class="status-light red"></span> Updating</td>
+            <td><a class="btn" href="#">Download</a></td>
+        </tr>
+    </table>
+
+    <div class="legend">
+        <strong>Status Legend:</strong><br>
+        🔴 Red = Blocked / Detected<br>
+        🟡 Yellow = Updating / Risk<br>
+        🟣 Purple = Testing Stage<br>
+        🟢 Green = Fully Safe
+    </div>
+
+    <footer>
+        📞 WhatsApp: +94 76 430 0291 | 💬 Discord: devx25
+    </footer>
+</div>
+
+<script>
+    const cursor = document.getElementById("cursor");
+    document.addEventListener("mousemove", (e) => {
+        cursor.style.left = e.pageX + "px";
+        cursor.style.top = e.pageY + "px";
+    });
+
+    function createSnow() {
+        const snow = document.createElement("div");
+        snow.className = "snow";
+        snow.style.left = Math.random() * innerWidth + "px";
+        snow.style.animationDuration = (Math.random() * 4 + 3) + "s";
+        snow.style.opacity = Math.random();
+        document.body.appendChild(snow);
+        setTimeout(() => snow.remove(), 6000);
+    }
+    setInterval(createSnow, 120);
+</script>
+
+</body>
+</html>
